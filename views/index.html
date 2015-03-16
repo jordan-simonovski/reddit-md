@@ -1,0 +1,67 @@
+<html lang="en" ng-app="redditApp">
+	<head>
+		<title>Reddit Material-Angular</title>
+
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+	</head>
+
+	<body ng-controller="mainController" ng-init="getFrontPage()">
+		
+		<section layout="row" flex>
+			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+				<md-toolbar class="md-theme-indigo">
+					<h1 class="md-toolbar-tools">Subreddit List</h1>
+				</md-toolbar>
+				<md-content class="md-padding">
+					<md-button ng-click="subreddit = 'programming'" class="md-primary">
+						Programming
+					</md-button>
+					<br>
+					<md-button ng-click="subreddit = 'askreddit'" class="md-primary">
+						AskReddit
+					</md-button>
+					<br>
+					<md-button ng-click="subreddit = 'webdev'" class="md-primary">
+						WebDev
+					</md-button>
+					<br>
+					<md-button ng-click="subreddit = 'funny'" class="md-primary">
+						Funny
+					</md-button>
+					<br>
+					<md-button ng-click="subreddit = 'adviceAnimals'" class="md-primary">
+						AdviceAnimals
+					</md-button>
+					<p hide-md show-gt-md>
+						I will be working on populating this sidebar when you login once reddit authentication is up and running.
+					</p>
+				</md-content>
+			</md-sidenav>
+			
+			<md-content-flex class="md-padding">
+				<div layout="column" layout-align="top center">
+					<md-progress-circular class="md-hue-2" ng-show="isLoading" md-mode="indeterminate" layout-align="center center"></md-progress-circular>
+					<div ng-repeat="(key,value) in postList">
+						<md-content>
+							<md-card style="width: 25%">
+								<img src="{{value.link}}">
+								<md-card-content>
+									<a href="{{value.link}}"><h2> {{value.title}}</h2></a>
+									<p> Placeholder text </p>
+								</md-card-content>
+							</md-card>
+						</md-content>
+					</div>
+				</div>
+			</md-content-flex>
+
+		</section>
+
+		<script src="/bower_components/angular/angular.min.js"></script>
+		<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+		<script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+		<script src="/bower_components/angular-material/angular-material.min.js"></script>
+		<script src="/javascripts/core.js"></script>
+	</body>
+</html>
