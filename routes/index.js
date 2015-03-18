@@ -1,5 +1,6 @@
 var express = require('express');
 var reddit = require('redwrap');
+var impurge = require('impurge');
 var router = express.Router(); 
 
 /* GET home page. */
@@ -16,13 +17,27 @@ router.get('/frontpage', function(req, res){
 
 	reddit.list('hot', function(err, data, res){
 		posts = data["data"]["children"];
+		var pushedObjects = 0;
 		
 		for (var post in posts) {
 			var title = posts[post]["data"]["title"];
 			var link = posts[post]["data"]["url"];
-			jsonObj.push({"title": title, "link": link});
+			var safeToPush = false;
 
-			if (post == (posts.length-1)) {
+			if (link.indexOf('imgur') > -1) {
+				impurge.purge(link, function (e,r){
+					link = r[0];
+					safeToPush = true;
+				});
+			} else {
+				safeToPush = true;
+			}
+
+			if (safeToPush == true) {
+				jsonObj.push({"title": title, "link": link});
+			}
+
+			if (post == (posts.length-1) ) {
 				returnResult();
 			}
 		}
@@ -45,9 +60,22 @@ router.get('/sub/:subreddit', function(req, res){
 		for (var post in posts) {
 			var title = posts[post]["data"]["title"];
 			var link = posts[post]["data"]["url"];
-			jsonObj.push({"title": title, "link": link});
+			var safeToPush = false;
 
-			if (post == (posts.length-1)) {
+			if (link.indexOf('imgur') > -1) {
+				impurge.purge(link, function (e,r){
+					link = r[0];
+					safeToPush = true;
+				});
+			} else {
+				safeToPush = true;
+			}
+
+			if (safeToPush == true) {
+				jsonObj.push({"title": title, "link": link});
+			}
+
+			if (post == (posts.length-1) ) {
 				returnResult();
 			}
 		}

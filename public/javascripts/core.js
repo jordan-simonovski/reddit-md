@@ -6,12 +6,10 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 	$scope.subreddit = "";
 
 	$scope.$watch('subreddit', function() {
-		console.log($scope.subreddit);
 		$scope.getPosts();
 	});
 
 	$scope.getPosts = function() {
-		console.log($scope.subreddit);
 		$scope.isLoading = true;
 		$scope.postList = {};
 		$http.get('/sub/' + $scope.subreddit).
@@ -31,11 +29,24 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 		success(function(data, status,headers, config){
 			$scope.postList = data;
 			$scope.isLoading = false;
+			$scope.parseLinks();
 		}).
 		error(function(data){
 			console.log('error');
 		});
 	};
 
+	$scope.parseLinks = function() {
+		$.each($scope.postList, function(index, value){
+			if ((value.link).indexOf('imgur') > -1) {
+
+				$http.get('https://api.imgur.com/3/image/')
+			}
+		});
+	};
+
 }]);
 
+redditApp.directive('fallbackSrc', function() {
+
+});

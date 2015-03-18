@@ -15,6 +15,7 @@
     "ejs": "*",
     "express-ejs-layouts": "*",
     "redwrap": "*",
-    "bower": "*"
+    "bower": "*",
+    "impurge": "*"
   }
 }
