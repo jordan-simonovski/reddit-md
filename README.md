@@ -4,8 +4,16 @@ Little side-project I'm working on using Material AngularJS and NodeJS. Working 
 
 ## Installation
 This is pretty straightforward:
-1. Go to where you've cloned the repository using a command line tool and enter "npm install"
-2. Once all of your dependencies have downloaded enter "npm start"
+
+```
+#go to where you've cloned the directory and enter
+npm install
+
+#this should install all ofthe dependencies in order for the server to run. Then you execute
+npm start
+
+#this should start the server on port 3000. Access the site by going to http://localhost:3000
+``` 
 
 ## Screenshot
 
