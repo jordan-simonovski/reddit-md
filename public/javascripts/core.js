@@ -29,24 +29,21 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 		success(function(data, status,headers, config){
 			$scope.postList = data;
 			$scope.isLoading = false;
-			$scope.parseLinks();
 		}).
 		error(function(data){
 			console.log('error');
 		});
 	};
 
-	$scope.parseLinks = function() {
-		$.each($scope.postList, function(index, value){
-			if ((value.link).indexOf('imgur') > -1) {
-
-				$http.get('https://api.imgur.com/3/image/')
-			}
-		});
-	};
-
 }]);
 
 redditApp.directive('fallbackSrc', function() {
-
+  var fallbackSrc = {
+    link: function postLink(scope, element, attrs) {
+      element.bind('error', function() {
+        angular.element(this).attr("src", attrs.fallbackSrc);
+      });
+    }
+   }
+   return fallbackSrc;
 });

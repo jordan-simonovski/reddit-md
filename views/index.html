@@ -45,7 +45,7 @@
 					<div ng-repeat="(key,value) in postList">
 						<md-content>
 							<md-card style="width: 25%">
-								<img src="{{value.link}}">
+								<img fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
 									<a href="{{value.link}}"><h2> {{value.title}}</h2></a>
 									<p> Placeholder text </p>
