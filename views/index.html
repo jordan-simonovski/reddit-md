@@ -7,6 +7,15 @@
 	</head>
 
 	<body ng-controller="mainController" ng-init="getFrontPage()">
+	<md-toolbar class="md-accent">
+      <h2 class="md-toolbar-tools">
+      	<img src="/images/reddit.png" style="width:40px; height:40px;"/>
+        <div class="docs-logotype">Material Design Reddit</div>
+      </h2>
+    </md-toolbar>
+	<div layout="row" layout-sm="column" layout-align="space-around">
+		<md-progress-circular class="md-hue-2" ng-show="isLoading" md-mode="indeterminate"></md-progress-circular>
+	</div>
 		
 		<section layout="row" flex>
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
@@ -17,22 +26,27 @@
 					<md-button ng-click="subreddit = 'programming'" class="md-primary">
 						Programming
 					</md-button>
+					<md-divider/>
 					<br>
 					<md-button ng-click="subreddit = 'askreddit'" class="md-primary">
 						AskReddit
 					</md-button>
+					<md-divider/>
 					<br>
 					<md-button ng-click="subreddit = 'webdev'" class="md-primary">
 						WebDev
 					</md-button>
+					<md-divider/>
 					<br>
 					<md-button ng-click="subreddit = 'funny'" class="md-primary">
 						Funny
 					</md-button>
+					<md-divider/>
 					<br>
 					<md-button ng-click="subreddit = 'adviceAnimals'" class="md-primary">
 						AdviceAnimals
 					</md-button>
+					<md-divider/>
 					<p hide-md show-gt-md>
 						I will be working on populating this sidebar when you login once reddit authentication is up and running.
 					</p>
@@ -40,11 +54,11 @@
 			</md-sidenav>
 			
 			<md-content-flex class="md-padding">
-				<div layout="column" layout-align="top center">
-					<md-progress-circular class="md-hue-2" ng-show="isLoading" md-mode="indeterminate" layout-align="center center"></md-progress-circular>
-					<div ng-repeat="(key,value) in postList">
+				<div layout="row" layout-wrap layout-sm="column">
+					
+					<div flex="33" ng-repeat="(key,value) in postList">
 						<md-content>
-							<md-card style="width: 25%">
+							<md-card class="md-whiteframe-z2">
 								<img fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
 									<a href="{{value.link}}"><h2> {{value.title}}</h2></a>
