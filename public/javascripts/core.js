@@ -76,6 +76,15 @@ redditApp.directive('renderImage', function($compile) {
 				var e = $compile(html)(scope);
 				element.replaceWith(e);
 			}
+
+			if (link.indexOf('gfycat') > -1) {
+				var linkName = link.split('gfycat');
+				var webmLink = linkName[0]+"fat.gfycat"+linkName[1]+".webm";
+				var mp4Link = linkName[0]+"fat.gfycat"+linkName[1]+".mp4";
+				html = '<video autoplay loop muted> <source type="video/webm" src="'+webmLink+'"> <source type="video/mp4" src="'+mp4Link+'"></video>';
+				var e = $compile(html)(scope);
+				element.replaceWith(e);
+			}
 		}
 	};
 });
