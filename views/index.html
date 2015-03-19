@@ -5,6 +5,8 @@
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 		<meta name="theme-color" content="#3F51B5"/>
 		<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	</head>
 
 	<body ng-controller="mainController" ng-init="getFrontPage()">
@@ -59,7 +61,7 @@
 					<div flex="33" flex-sm="100" ng-repeat="(key,value) in postList">
 						<md-content>
 							<md-card class="md-whiteframe-z2">
-								<img fallback-src="/images/default.png" src="{{value.link}}">
+								<img id="{{key}}" render-image="{{value.link}}" fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
 									<a href="{{value.link}}"><h2> {{value.title}}</h2></a>
 									<p> Placeholder text </p>

@@ -61,3 +61,21 @@ redditApp.directive('fallbackSrc', function() {
    }
    return fallbackSrc;
 });
+
+redditApp.directive('renderImage', function($compile) {
+	return {
+		restrtict: 'E', 
+		link: function(scope, element, attrs){
+			var html = '';
+			var link = attrs.renderImage;
+			var linkExtension = link.split('.').pop();
+
+			if (linkExtension == "gifv") {
+				var linkName = link.split('.gifv');
+				html = '<video autoplay loop muted> <source type="video/webm" src="'+ linkName[0] + '.webm"> <source type="video/mp4" src="'+linkName[0]+'.mp4"></video>';
+				var e = $compile(html)(scope);
+				element.replaceWith(e);
+			}
+		}
+	};
+});
