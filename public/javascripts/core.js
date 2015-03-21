@@ -86,8 +86,15 @@ redditApp.directive('renderImage', function($compile) {
 				element.replaceWith(e);
 			}
 
+			if (link.indexOf('youtube') > -1) {
+				var linkName = link.split('watch?v=');
+				var linkIndex = linkName[1];
+				html = '<iframe width="100%" height="315" src="https://www.youtube.com/embed/'+ linkIndex +'" frameborder="0" allowfullscreen></iframe>';
+				var e = $compile(html)(scope);
+				element.replaceWith(e);
+			}
+
 			if (!((/\.(gif|jpg|jpeg|tiff|png)$/i).test(link))){
-				console.log(link);
 				html = '<img id="{{key}}" fallback-src="/images/default.png" src="{{value.thumbnail}}">';
 				var e = $compile(html)(scope);
 				element.replaceWith(e);
