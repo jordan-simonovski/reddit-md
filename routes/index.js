@@ -22,6 +22,7 @@ router.get('/frontpage', function(req, res){
 		for (var post in posts) {
 			var title = posts[post]["data"]["title"];
 			var link = posts[post]["data"]["url"];
+			var thumbnail = posts[post]["data"]["thumbnail"];
 			var safeToPush = false;
 
 			if (link.indexOf('imgur') > -1) {
@@ -34,7 +35,7 @@ router.get('/frontpage', function(req, res){
 			}
 
 			if (safeToPush == true) {
-				jsonObj.push({"title": title, "link": link});
+				jsonObj.push({"title": title, "link": link, "thumbnail": thumbnail});
 			}
 
 			if (post == (posts.length-1) ) {
@@ -60,6 +61,7 @@ router.get('/sub/:subreddit', function(req, res){
 		for (var post in posts) {
 			var title = posts[post]["data"]["title"];
 			var link = posts[post]["data"]["url"];
+			var thumbnail = posts[post]["data"]["thumbnail"];
 			var safeToPush = false;
 
 			if (link.indexOf('imgur') > -1) {
@@ -72,7 +74,7 @@ router.get('/sub/:subreddit', function(req, res){
 			}
 
 			if (safeToPush == true) {
-				jsonObj.push({"title": title, "link": link});
+				jsonObj.push({"title": title, "link": link, "thumbnail": thumbnail});
 			}
 
 			if (post == (posts.length-1) ) {

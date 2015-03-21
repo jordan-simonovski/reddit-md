@@ -85,6 +85,13 @@ redditApp.directive('renderImage', function($compile) {
 				var e = $compile(html)(scope);
 				element.replaceWith(e);
 			}
+
+			if (!((/\.(gif|jpg|jpeg|tiff|png)$/i).test(link))){
+				console.log(link);
+				html = '<img id="{{key}}" fallback-src="/images/default.png" src="{{value.thumbnail}}">';
+				var e = $compile(html)(scope);
+				element.replaceWith(e);
+			}
 		}
 	};
 });
