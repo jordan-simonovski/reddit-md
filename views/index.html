@@ -58,12 +58,12 @@
 			
 			<md-content-flex class="md-padding">
 				<div layout="row" layout-wrap layout-sm="column">
-					<div flex="33" flex-sm="100" ng-repeat="(key,value) in postList">
+					<div flex="25" flex-sm="100" ng-repeat="(key,value) in postList">
 						<md-content>
 							<md-card class="md-whiteframe-z2">
 								<img id="{{key}}" render-image="{{value.link}}" fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
-									<a href="{{value.link}}"><h2> {{value.title}}</h2></a>
+									<a href="{{value.link}}"> {{value.title}}</a>
 									<p> Placeholder text </p>
 								</md-card-content>
 							</md-card>
