@@ -18,6 +18,7 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 	$scope.postList = {};
 	$scope.isLoading = false;
 	$scope.subreddit = "";
+	$scope.defaultSubreddits = [];
 
 	$scope.$watch('subreddit', function() {
 		$scope.getPosts();
@@ -34,6 +35,16 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 		error(function(data){
 			console.log('error');
 		});
+	};
+
+	$scope.getDefaults = function() {
+		$http.get('/defaults').
+		success(function(data, status, headers, config){
+			$scope.defaultSubreddits = data;
+		}).
+		error(function(data){
+			console.log('Error: ' +data);
+		})
 	};
 
 	$scope.getFrontPage = function() {
@@ -101,4 +112,8 @@ redditApp.directive('renderImage', function($compile) {
 			}
 		}
 	};
+});
+
+redditApp.directive('getParentComments', function(){
+
 });

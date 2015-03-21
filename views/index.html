@@ -23,33 +23,16 @@
 		<section layout="row" flex>
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 				<md-toolbar class="md-theme-indigo">
-					<h1 class="md-toolbar-tools">Subreddit List</h1>
+					<h1 class="md-toolbar-tools" ng-init="getDefaults()">Subreddit List</h1>
 				</md-toolbar>
 				<md-content class="md-padding">
-					<md-button ng-click="subreddit = 'programming'" class="md-primary">
-						Programming
-					</md-button>
-					<md-divider/>
-					<br>
-					<md-button ng-click="subreddit = 'askreddit'" class="md-primary">
-						AskReddit
-					</md-button>
-					<md-divider/>
-					<br>
-					<md-button ng-click="subreddit = 'webdev'" class="md-primary">
-						WebDev
-					</md-button>
-					<md-divider/>
-					<br>
-					<md-button ng-click="subreddit = 'funny'" class="md-primary">
-						Funny
-					</md-button>
-					<md-divider/>
-					<br>
-					<md-button ng-click="subreddit = 'adviceAnimals'" class="md-primary">
-						AdviceAnimals
-					</md-button>
-					<md-divider/>
+					<div ng-repeat="sub in defaultSubreddits track by $index">
+						<md-button ng-click="subreddit = 'defaultSubreddits[sub].text'" class="md-primary">
+							{{sub}}
+						</md-button>
+						<md-divider/>
+						<br>
+					</div>
 					<p hide-md show-gt-md>
 						I will be working on populating this sidebar when you login once reddit authentication is up and running.
 					</p>
@@ -63,8 +46,11 @@
 							<md-card class="md-whiteframe-z2">
 								<img id="{{key}}" render-image="{{value.link}}" fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
-									<a href="{{value.link}}"> {{value.title}}</a>
+									<a href="{{value.link}}" class="subreddit"> {{value.title}}</a>
+									<span> {{value.subreddit}} </span>
 									<p> Placeholder text </p>
+									<span> <b>{{value.score}}</b> </span>
+									<a href="http://www.reddit.com{{value.permalink}}"> Comments </a>
 								</md-card-content>
 							</md-card>
 						</md-content>

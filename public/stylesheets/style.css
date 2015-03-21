@@ -9,3 +9,8 @@ a {
   font-size: 14px;
   font-familt: 'Roboto', sans-serif;
 }
+
+.subreddit {
+	font-size: 9px;
+	font-color: #808080;
+}
