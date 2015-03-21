@@ -19,15 +19,18 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 	$scope.isLoading = false;
 	$scope.subreddit = "";
 	$scope.defaultSubreddits = [];
+	$scope.isInit = true;
 
 	$scope.$watch('subreddit', function() {
-		$scope.getPosts();
+		if (!$scope.isInit) {
+			$scope.getPosts();
+		}
 	});
 
-	$scope.getPosts = function() {
+	$scope.getPosts = function(sub) {
 		$scope.isLoading = true;
 		$scope.postList = {};
-		$http.get('/sub/' + $scope.subreddit).
+		$http.get('/sub/' + sub).
 		success(function(data, status,headers, config){
 			$scope.postList = data;
 			$scope.isLoading = false;
@@ -54,6 +57,7 @@ redditApp.controller('mainController', ['$scope','$http', function($scope, $http
 		success(function(data, status,headers, config){
 			$scope.postList = data;
 			$scope.isLoading = false;
+			$scope.isInit = false;
 		}).
 		error(function(data){
 			console.log('error');
@@ -79,36 +83,44 @@ redditApp.directive('renderImage', function($compile) {
 		link: function(scope, element, attrs){
 			var html = '';
 			var link = attrs.renderImage;
+			var domain = attrs.renderImageDomain;
 			var linkExtension = link.split('.').pop();
+			console.log(domain);
 
-			if (linkExtension == "gifv") {
-				var linkName = link.split('.gifv');
-				html = '<video autoplay loop muted> <source type="video/webm" src="'+ linkName[0] + '.webm"> <source type="video/mp4" src="'+linkName[0]+'.mp4"></video>';
-				var e = $compile(html)(scope);
-				element.replaceWith(e);
-			}
+			try {
+				if (linkExtension == "gifv") {
+					var linkName = link.split('.gifv');
+					html = '<video autoplay loop muted> <source type="video/webm" src="'+ linkName[0] + '.webm"> <source type="video/mp4" src="'+linkName[0]+'.mp4"></video>';
+					var e = $compile(html)(scope);
+					element.replaceWith(e);
+				}
 
-			if (link.indexOf('gfycat') > -1) {
-				var linkName = link.split('gfycat');
-				var webmLink = linkName[0]+"fat.gfycat"+linkName[1]+".webm";
-				var mp4Link = linkName[0]+"fat.gfycat"+linkName[1]+".mp4";
-				html = '<video autoplay loop muted> <source type="video/webm" src="'+webmLink+'"> <source type="video/mp4" src="'+mp4Link+'"></video>';
-				var e = $compile(html)(scope);
-				element.replaceWith(e);
-			}
+				if (domain.indexOf('gfycat') > -1) {
+					var linkName = link.split('gfycat');
+					var webmLink = linkName[0]+"fat.gfycat"+linkName[1]+".webm";
+					var mp4Link = linkName[0]+"fat.gfycat"+linkName[1]+".mp4";
+					html = '<video autoplay loop muted> <source type="video/webm" src="'+webmLink+'"> <source type="video/mp4" src="'+mp4Link+'"></video>';
+					var e = $compile(html)(scope);
+					element.replaceWith(e);
+				}
 
-			if (link.indexOf('youtube') > -1) {
-				var linkName = link.split('watch?v=');
-				var linkIndex = linkName[1];
-				html = '<iframe width="100%" height="315" src="https://www.youtube.com/embed/'+ linkIndex +'" frameborder="0" allowfullscreen></iframe>';
-				var e = $compile(html)(scope);
-				element.replaceWith(e);
-			}
+				if (link.indexOf('youtube') > -1) {
+					var linkName = link.split('watch?v=');
+					var linkIndex = linkName[1];
+					html = '<iframe width="100%" height="315" src="https://www.youtube.com/embed/'+ linkIndex +'" frameborder="0" allowfullscreen></iframe>';
+					var e = $compile(html)(scope);
+					element.replaceWith(e);
+				}
 
-			if (!((/\.(gif|jpg|jpeg|tiff|png)$/i).test(link))){
-				html = '<img id="{{key}}" fallback-src="/images/default.png" src="{{value.thumbnail}}">';
-				var e = $compile(html)(scope);
-				element.replaceWith(e);
+				if (!((/\.(gif|jpg|jpeg|tiff|png)$/i).test(link))){
+					html = '<img id="{{key}}" fallback-src="/images/default.png" src="{{value.thumbnail}}">';
+					var e = $compile(html)(scope);
+					element.replaceWith(e);
+				}
+			} 
+			catch (e) {
+				console.log(e);
+				console.log(link);
 			}
 		}
 	};

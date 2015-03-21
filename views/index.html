@@ -27,7 +27,7 @@
 				</md-toolbar>
 				<md-content class="md-padding">
 					<div ng-repeat="sub in defaultSubreddits track by $index">
-						<md-button ng-click="subreddit = 'defaultSubreddits[sub].text'" class="md-primary">
+						<md-button ng-click="getPosts(sub)" class="md-primary">
 							{{sub}}
 						</md-button>
 						<md-divider/>
@@ -44,7 +44,7 @@
 					<div flex="25" flex-sm="100" ng-repeat="(key,value) in postList">
 						<md-content>
 							<md-card class="md-whiteframe-z2">
-								<img id="{{key}}" render-image="{{value.link}}" fallback-src="/images/default.png" src="{{value.link}}">
+								<img id="{{key}}" render-image="{{value.link}}" render-image-domain="{{value.domain}}" fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
 									<a href="{{value.link}}" class="subreddit"> {{value.title}}</a>
 									<span> {{value.subreddit}} </span>
