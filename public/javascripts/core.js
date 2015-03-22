@@ -136,6 +136,7 @@ redditApp.directive('getTopComments', function($http, $compile){
 
 			var iterateText = function() {
 				var index = 1;
+				console.log(comments);
 
 				setInterval(function(){
 					var truncatedText = "";
