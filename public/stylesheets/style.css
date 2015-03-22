@@ -1,16 +1,20 @@
 body {
-  padding: 50px;
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 14px;
 }
 
 a {
   color: #00B7FF;
-  font-size: 14px;
   font-familt: 'Roboto', sans-serif;
 }
 
 .subreddit {
-	font-size: 9px;
+	font-size: 12px;
 	font-color: #808080;
+}
+
+.center-loading {
+	position: absolute;
+	z-index: 15;
+	top: 50%;
+	left: 50%;
 }

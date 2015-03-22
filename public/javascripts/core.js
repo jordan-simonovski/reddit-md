@@ -126,6 +126,51 @@ redditApp.directive('renderImage', function($compile) {
 	};
 });
 
-redditApp.directive('getParentComments', function(){
+redditApp.directive('getTopComments', function($http, $compile){	
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			var permalink = "http://reddit.com" + attrs.getTopComments +".json";
+			var commentObject = {};
+			var comments = [];
 
+			var iterateText = function() {
+				var index = 1;
+
+				setInterval(function(){
+					var html = '<p class="comment">'+comments[index]['comment']+'</p>';
+					var e = $compile(html)(scope);
+					var replacedElem = angular.element(element[0].querySelector('.comment'));
+					replacedElem.replaceWith(e);
+
+					index++;
+					if(index >= comments.length) {
+						index = 0;
+					}
+				}, 15000);
+
+			};
+			
+			delete $http.defaults.headers.common['X-Requested-With'];
+			$http({
+				method: 'GET',
+				url: permalink,
+			}).
+			success(function(data, status,headers, config){
+				commentObject = data;
+				var commentList = commentObject[1]['data']['children'];
+				for (var comment in commentList) {
+					var commentText = commentList[comment]["data"]["body"];
+					comments.push({'comment': commentText});
+				}
+				var html = '<p class="comment">'+comments[0]['comment']+'</p>';
+				var e = $compile(html)(scope);
+				element.append(e);
+				iterateText();
+			}).
+			error(function(data){
+				console.log('error');
+			});
+		}
+	};
 });

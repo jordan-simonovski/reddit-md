@@ -5,6 +5,7 @@
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 		<meta name="theme-color" content="#3F51B5"/>
 		<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+		<link rel="stylesheet" href="/stylesheets/style.css"/>
 		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	</head>
@@ -16,10 +17,9 @@
         <div class="docs-logotype">Material Design Reddit</div>
       </h2>
     </md-toolbar>
-	<div layout="row" layout-sm="column" layout-align="space-around">
-		<md-progress-circular class="md-hue-2" ng-show="isLoading" md-mode="indeterminate"></md-progress-circular>
-	</div>
 		
+	<md-progress-circular class="md-hue-2 center-loading" ng-show="isLoading" md-mode="indeterminate"></md-progress-circular>
+
 		<section layout="row" flex>
 			<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 				<md-toolbar class="md-theme-indigo">
@@ -46,10 +46,10 @@
 							<md-card class="md-whiteframe-z2">
 								<img id="{{key}}" render-image="{{value.link}}" render-image-domain="{{value.domain}}" fallback-src="/images/default.png" src="{{value.link}}">
 								<md-card-content>
-									<a href="{{value.link}}" class="subreddit"> {{value.title}}</a>
-									<span> {{value.subreddit}} </span>
-									<p> Placeholder text </p>
-									<span> <b>{{value.score}}</b> </span>
+									<a href="{{value.link}}"> {{value.title}}</a>
+									<span class="subreddit"> {{value.subreddit}} </span>
+									<p get-top-comments="{{value.permalink}}"></p>
+									<span> <b>{{value.score}} points </b> </span>
 									<a href="http://www.reddit.com{{value.permalink}}"> Comments </a>
 								</md-card-content>
 							</md-card>
