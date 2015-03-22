@@ -19,7 +19,7 @@ npm start
 
 I've added a screenshot for those of you who don't want to run the server.
 
-![screenshot of current app](http://i.imgur.com/iY9z206.jpg)
+![screenshot of current app](http://i.imgur.com/VGhOYWh.jpg)
 
 
 
