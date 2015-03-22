@@ -138,7 +138,15 @@ redditApp.directive('getTopComments', function($http, $compile){
 				var index = 1;
 
 				setInterval(function(){
-					var html = '<p class="comment">'+comments[index]['comment']+'</p>';
+					var truncatedText = "";
+
+					if ((comments[index]['comment']).length >= 200) {
+						truncatedText = jQuery.trim(comments[index]['comment']).substring(0, 200).trim(this) + "...";
+					} else {
+						truncatedText = comments[index]['comment'];
+					}
+
+					var html = '<p class="comment">'+ truncatedText +'</p>';
 					var e = $compile(html)(scope);
 					var replacedElem = angular.element(element[0].querySelector('.comment'));
 					replacedElem.replaceWith(e);
@@ -159,13 +167,24 @@ redditApp.directive('getTopComments', function($http, $compile){
 			success(function(data, status,headers, config){
 				commentObject = data;
 				var commentList = commentObject[1]['data']['children'];
+
 				for (var comment in commentList) {
 					var commentText = commentList[comment]["data"]["body"];
 					comments.push({'comment': commentText});
 				}
-				var html = '<p class="comment">'+comments[0]['comment']+'</p>';
+
+				var truncatedText = ""
+
+				if ((comments[0]['comment']).length >= 200) {
+					truncatedText = jQuery.trim(comments[0]['comment']).substring(0, 200).trim(this) + "...";
+				} else {
+					truncatedText = comments[0]['comment'];
+				}
+
+				var html = '<p class="comment">'+ truncatedText +'</p>';
 				var e = $compile(html)(scope);
 				element.append(e);
+
 				iterateText();
 			}).
 			error(function(data){
